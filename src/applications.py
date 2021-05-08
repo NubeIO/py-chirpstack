@@ -2,17 +2,6 @@ import json
 
 
 class Application:
-    """ A class to represent Applications within Chirpstack.io
-
-    Args:
-        name (str): The name of the application.
-        description (str): A description of the application.
-        chirpstack_connection (chirpstack_connection):
-            A chirpstack_connection object
-    Returns:
-        Chirpstack: A chirpstack_connection object
-    """
-
     def __init__(self,
                  name=None,
                  description=None,
@@ -52,16 +41,6 @@ class Application:
                name=None,
                orgId=None,
                service_profile=None):
-        """
-        Create a new application
-
-        Args:
-            name (str): The name of the new application
-            orgid (int): The ID of the organisation that owns the application
-            service_profile (str): The Service Profile ID
-        Returns:
-            dict: A dict of the creation attempt result
-        """
         url = "%s/api/applications" % (
                 self.cscx.chirpstack_url,
                 )
@@ -78,10 +57,7 @@ class Application:
                     'result_text': 'A Service Profile must be supplied'
                     }
 
-        payload = {}
-        payload['name'] = name
-        payload['organizationID'] = orgId
-        payload['serviceProfileID'] = service_profile
+        payload = {'name': name, 'organizationID': orgId, 'serviceProfileID': service_profile}
         resp = self.cscx.connection.post(url, json=payload)
         resp_json = json.loads(resp.text)
         if "id" in resp_json:

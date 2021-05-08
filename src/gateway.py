@@ -1,48 +1,47 @@
-class DeviceProfiles:
-    """
-    A class representing Device Profiles within Chirpstack.io
+from src.utils.utils import Utils
 
-    Args:
-        name (str): The name of the device profile.
-        description (str): A description of the device profile.
-        chirpstack_connection (chirpstack_connection):
-            A chirpstack_connection object
-    Returns:
-        DeviceProfiles: A device profile object
-    """
+
+class Gateway:
 
     def __init__(self,
-                 name=None,
-                 description=None,
+                 organizationID=None,
                  chirpstack_connection=None
                  ):
+        self.organizationID = organizationID
         self.cscx = chirpstack_connection
 
-    def list(self,
-             limit=10,
-             offset=0,
-             appid=None,
-             orgid=None):
+    def list_all(self,
+                 organizationID=None,
+                 limit=100
+                 ):
         """
-        Get a list of all of the device profiles
-
-        Args:
-            limit (int): The number of results to return (must be more than 0)
-            offset (int): The results offset for pagination purposes
-            search_term (str): Text to search for in the device profile name
-            appid (int): The application to restrict the search to
-            orgid (int): The organisation to restrict the search to
-        Returns:
-            dict: A dict of the search results
+        list all gateways
+        :param organizationID:
+        :param limit:
+        :return:
         """
-        url = "%s/api/device-profiles?limit=%s&offset=%s" % (
-                self.cscx.chirpstack_url,
-                limit,
-                offset)
-        if appid is not None:
-            url = "%s&applicationID=%s" % (url, appid)
-        if orgid is not None:
-            url = "%s&organizationID=%s" % (url, orgid)
+        gateways_list_query = "%s/api/gateways?limit=%s&organizationID=%s" % (
+            self.cscx.chirpstack_url,
+            limit,
+            organizationID
+        )
+        r = self.cscx.connection.get(gateways_list_query).json()
+        return r
 
-        ret_list = self.cscx.connection.get(url)
-        return ret_list.json()
+    def stats(self,
+              gateway_id=None,
+              days=None
+              ):
+        """
+        get gateway stats
+        :param gateway_id:
+        :param days:
+        :return:
+        """
+        sub_days = Utils.encode_time(Utils.day_subtract(days))
+        now = Utils.encode_time(Utils.time_now())
+        interval = "DAY"
+        print(sub_days, now)
+        url = f"{self.cscx.chirpstack_url}/api/gateways/{gateway_id}/stats?interval={interval}&startTimestamp={sub_days}&endTimestamp={now}"
+        r = self.cscx.connection.get(url).json()
+        return r

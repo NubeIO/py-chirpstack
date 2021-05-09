@@ -15,15 +15,12 @@ class Application:
              search_term=None,
              orgid=None):
         """
-        Get a list of all of the applications
-
-        Args:
-            limit (int): The number of results to return (must be more than 0)
-            offset (int): The results offset for pagination purposes
-            search_term (str): Text to search for in the application name
-            orgid (int): The organisation to restrict the search to
-        Returns:
-            dict: A dict of the search results
+        list all applications
+        :param limit:
+        :param offset:
+        :param search_term:
+        :param orgid:
+        :return:
         """
         url = "%s/api/applications?limit=%s&offset=%s" % (
                 self.cscx.chirpstack_url,
@@ -41,6 +38,13 @@ class Application:
                name=None,
                orgId=None,
                service_profile=None):
+        """
+        create ann applications
+        :param name:
+        :param orgId:
+        :param service_profile:
+        :return:
+        """
         url = "%s/api/applications" % (
                 self.cscx.chirpstack_url,
                 )
@@ -66,5 +70,3 @@ class Application:
                     'new_app_id': resp_json['id']}
         else:
             return {'result_code': resp.status_code, 'result_text': resp.text}
-
-        return {}

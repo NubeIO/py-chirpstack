@@ -1,5 +1,5 @@
-from src import chirpstack, gateway
-from src.tests.test_settings import TestSettings
+from chirpstack import chirpstack, gateway
+from tests.test_settings import TestSettings
 
 cx = chirpstack.Chirpstack(
     chirpstack_url=TestSettings.ip,

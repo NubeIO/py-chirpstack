@@ -1,5 +1,5 @@
-from src import chirpstack, users
-from src.tests.test_settings import TestSettings
+from chirpstack import chirpstack, users
+from tests.test_settings import TestSettings
 
 cx = chirpstack.Chirpstack(
     chirpstack_url=TestSettings.ip,

@@ -3,7 +3,7 @@ import uuid
 import binascii
 import json
 
-from src.utils.utils import Utils
+from chirpstack.utils.utils import Utils
 
 
 class Devices:

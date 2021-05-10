@@ -1,4 +1,4 @@
-from src import device, chirpstack, device_profiles
+from chirpstack import device, chirpstack, device_profiles
 
 # Setup the connection
 cx = chirpstack.Chirpstack(

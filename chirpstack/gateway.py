@@ -1,4 +1,4 @@
-from src.utils.utils import Utils
+from chirpstack.utils.utils import Utils
 
 
 class Gateway:

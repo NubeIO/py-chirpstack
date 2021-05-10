@@ -5,11 +5,13 @@ class Chirpstack:
     def __init__(self,
                  chirpstack_url=None,
                  chirpstack_user=None,
-                 chirpstack_pass=None
+                 chirpstack_pass=None,
+                 jwt=None
                  ):
         self.chirpstack_url = chirpstack_url
         self.chirpstack_user = chirpstack_user
         self.chirpstack_pass = chirpstack_pass
+        self.jwt = jwt
         self.connect()
 
     def _authenticate(self):
@@ -23,8 +25,8 @@ class Chirpstack:
             json=payload
         )
         auth_tok = auth_request.json()
-        jwt = auth_tok.get('jwt')
-        auth_header = {"Grpc-Metadata-Authorization": jwt}
+        self.jwt = auth_tok.get('jwt')
+        auth_header = {"Grpc-Metadata-Authorization": self.jwt}
         return auth_header
 
     def connect(self):
@@ -32,3 +34,6 @@ class Chirpstack:
         is_connect = requests.Session()
         is_connect.headers = auth_header
         self.connection = is_connect
+
+    def get_jwt(self):
+        return self.jwt

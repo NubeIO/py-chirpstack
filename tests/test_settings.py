@@ -1,5 +1,5 @@
 
 class TestSettings:
-    ip = "http://123.209.90.112:8080"
+    ip = "http://0.0.0.0:8080"
     user = "admin"
-    password = "admin"
+    password = "N00BLWAN"

@@ -42,3 +42,15 @@ class Utils:
             return return_dict
         else:
             return res.json()
+
+    @classmethod
+    def http_response_bool(cls, res):
+        return_dict = {'result': 'success'}
+        if res.status_code != 200:
+            return_dict['result'] = "failure"
+            return_dict['message'] = json.loads(
+                res.content
+            )['message']
+            return False
+        else:
+            return True

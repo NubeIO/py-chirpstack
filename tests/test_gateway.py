@@ -9,7 +9,7 @@ cx = chirpstack.Chirpstack(
 
 # Connect to the gateway class
 g = gateway.Gateway(chirpstack_connection=cx)
-
+print(cx.get_connection_status())
 # Get all the gateways
 gateways = g.list_all(organizationID=1)
 print(gateways)

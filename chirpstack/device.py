@@ -177,7 +177,7 @@ class Devices:
         if return_dict['result'] == 'failure':
             return return_dict
         url = f"{self.cscx.chirpstack_url}/api/devices/{dev_eui}"
-        res = self.cscx.connection.get(url)
+        res = self.cscx.connection.delete(url)
         return Utils.http_response(res)
 
     def list_all(self,

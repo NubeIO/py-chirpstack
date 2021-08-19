@@ -9,7 +9,7 @@ class Chirpstack:
                  chirpstack_user=None,
                  chirpstack_pass=None,
                  jwt: str = None,
-                 connection_status: bool =None
+                 connection_status: bool = None
                  ):
         self.chirpstack_url = chirpstack_url
         self.chirpstack_user = chirpstack_user
